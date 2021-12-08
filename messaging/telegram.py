@@ -1,6 +1,6 @@
 import requests
 
-class Telegram:
+class TelegramBots:
     def send2Telegram(bot_id, group, text):
         """
         sends the message to telegram
