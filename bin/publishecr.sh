@@ -4,7 +4,7 @@ version=$(docker images | awk '{print $2}' | awk 'NR==2')
 
 # configure aws login
 region=$(aws configure list | grep region | awk '{print $2}') # requires setting AWS_REGION
-aws_account_id=$(aws sts get-caller-identity --query Account --ouput text) # requires setting AWS_PROFILE
+aws_account_id=$(aws sts get-caller-identity --query Account --output text) # requires setting AWS_PROFILE
 
 # log into aws ecr
 aws ecr get-login-password --region $region | docker login --username AWS --password-stdin $aws_account_id.dkr.ecr.$region.amazonaws.com
