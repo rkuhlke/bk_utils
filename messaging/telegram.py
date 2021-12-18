@@ -1,7 +1,11 @@
 import requests
+from logger import setLogLevel
 
 class TelegramBots:
-    def send2Telegram(bot_id, group, text):
+    def __init__(self, logLevel=""):
+        self.logger = setLogLevel(logLevel, "telegram")
+    
+    def send2Telegram(self, bot_id, group, text):
         """
         sends the message to telegram
         :param group: choose what telegram group to send message to
@@ -9,4 +13,9 @@ class TelegramBots:
         :return: message
         """
         # sends a message to telegram
-        return requests.get(f"https://api.telegram.org/bot{bot_id}/sendMessage?chat_id={group}=&text={text}")
+        try:
+            requests.get(f"https://api.telegram.org/bot{bot_id}/sendMessage?chat_id={group}=&text={text}")
+        except requests.RequestException as error:
+            self.logger.error(f"Error: {error}")
+        self.logger.info("Successfully Sent Message to Telegram")
+        return
