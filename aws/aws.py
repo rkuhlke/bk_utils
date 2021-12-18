@@ -66,9 +66,9 @@ class AWS:
             raise e
         else:
             if "SecretString" in get_secret_value_response:
-                self.logger.info("Get Secret Successful:", f"{secretName}")
+                self.logger.info(f"Get Secret Successful: {secretName}")
                 return json.loads(get_secret_value_response["SecretString"])
             else:
-                self.logger.info("Get Secret Successful:", f"{secretName}")
+                self.logger.info(f"Get Secret Successful: {secretName}")
                 return json.loads(base64.b64decode(get_secret_value_response["StringBinary"]))
         
