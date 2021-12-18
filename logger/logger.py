@@ -8,9 +8,9 @@ def setLogLevel(logLevel:str, name):
     logger.addHandler(ch)
 
     if logLevel.lower() == "debug":
-        return logger.setLevel(logging.DEBUG)
+        logger.setLevel(logging.DEBUG)
     elif logLevel.lower() == "error":
-        return logger.setLevel(logging.ERROR)
+        logger.setLevel(logging.ERROR)
     else:
-        return logger.setLevel(logging.INFO)
+        logger.setLevel(logging.INFO)
     
