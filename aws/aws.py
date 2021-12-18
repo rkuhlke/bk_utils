@@ -32,7 +32,7 @@ class AWS:
             self.logger.error(f"Error: {error}")
             return
         self.logger.info(f"Get Object Successful: s3://{bucket}/{key}")
-        return file.get("Body").read().decode("utf-8")
+        return file.get("Body").read()
     
     def s3DownloadObject(self, bucket, key, path):
         s3 = boto3.client("s3")
