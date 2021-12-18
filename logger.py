@@ -1,7 +1,7 @@
 import logging
 
 def setLogLevel(logLevel:str, name):
-    logger = logging.getLogger(f"utilities-{name}")
+    logger = logging.getLogger(name)
     ch = logging.StreamHandler()
     formatter = logging.Formatter("%(asctime)s - %(name)s - %(levelname)s - %(message)s")
     ch.setFormatter(formatter)

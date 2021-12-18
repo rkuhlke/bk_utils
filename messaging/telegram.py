@@ -3,7 +3,7 @@ from logger import setLogLevel
 
 class TelegramBots:
     def __init__(self, logLevel=""):
-        self.logger = setLogLevel(logLevel, "telegram")
+        self.logger = setLogLevel(logLevel, __name__)
     
     def send2Telegram(self, bot_id, group, text):
         """

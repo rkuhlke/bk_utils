@@ -12,7 +12,7 @@ class AWS:
     Makes life easy when using AWS API Resources
     """
     def __init__(self, logLevel=""):
-        self.logger = setLogLevel(logLevel, "aws")
+        self.logger = setLogLevel(logLevel, __name__)
         
     def s3GetObject(self, bucket, key):
         s3 = boto3.client("s3")
