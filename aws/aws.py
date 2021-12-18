@@ -29,9 +29,9 @@ class AWS:
         try:
             file = s3.get_object(Bucket=bucket, Key=key)
         except ClientError as error:
-            self.logger.error("Error:", error)
+            self.logger.error(f"Error: {error}")
             return
-        self.logger.info("Get Object Successful:", f"s3://{bucket}/{key}")
+        self.logger.info(f"Get Object Successful: s3://{bucket}/{key}")
         return file
     
     def s3DownloadObject(self, bucket, key, path):
@@ -39,27 +39,27 @@ class AWS:
         try:
             s3.download_file(bucket, key, os.path.join(path, key))
         except ClientError as error:
-            self.logger.error("Error:", error)
+            self.logger.error(f"Error: {error}")
             return
-        self.logger.info("Download Object Successful:", f"s3://{bucket}/{key} -> {os.path.join(path, key)}")
+        self.logger.info(f"Download Object Successful: s3://{bucket}/{key} -> {os.path.join(path, key)}")
     
     def s3PutObject(self, bucket, key, data):
         s3 = boto3.client("s3")
         try:
             s3.put_object(Body=data, Bucket=bucket, Key=key)
         except ClientError as error:
-            self.logger.error("Error:", error)
+            self.logger.error(f"Error: {error}")
             return
-        self.logger.info("Put Object Successful:", f"s3://{bucket}/{key}")
+        self.logger.info(f"Put Object Successful: s3://{bucket}/{key}")
     
     def s3DeleteObject(self, bucket, key):
         s3 = boto3.client("s3")
         try:
             s3.delete_object(Bucket=bucket, Key=key)
         except ClientError as error:
-            self.logger.error("Error:", error)
+            self.logger.error(f"Error: {error}")
             return
-        self.logger.info("Delete Object Successful:", f"s3://{bucket}/{key}")
+        self.logger.info(f"Delete Object Successful: s3://{bucket}/{key}")
     
     def secretsManagerGetSecret(self, secretName):
         region = "us-east-1"
