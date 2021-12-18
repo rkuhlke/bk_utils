@@ -3,7 +3,7 @@ import base64
 import json
 import os
 from botocore.exceptions import ClientError
-from logger.logger import setLogLevel
+from ..logger.logger import setLogLevel
 
 
 class AWS:
