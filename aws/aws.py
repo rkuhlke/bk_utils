@@ -1,9 +1,9 @@
 import boto3
 import base64
 import json
+import logging
 import os
 from botocore.exceptions import ClientError
-from ..logger.logger import setLogLevel
 
 
 class AWS:
@@ -11,7 +11,18 @@ class AWS:
     Makes life easy when using AWS API Resources
     """
     def __init__(self, logLevel=""):
-        self.logger = setLogLevel(logLevel, __name__)
+        self.logger = logging.getLogger(__name__)
+        ch = logging.StreamHandler()
+        formatter = logging.Formatter("%(asctime)s - %(name)s - %(levelname)s - %(message)s")
+        ch.setFormatter(formatter)
+        self.logger.addHandler(ch)
+
+        if logLevel.lower() == "debug":
+            self.logger.setLevel(logging.DEBUG)
+        elif logLevel.lower() == "error":
+            self.logger.setLevel(logging.ERROR)
+        else:
+            self.logger.setLevel(logging.INFO)
         
     def s3GetObject(self, bucket, key):
         s3 = boto3.client("s3")

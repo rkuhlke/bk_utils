@@ -1,9 +1,21 @@
+import logging
 import requests
-from ..logger.logger import setLogLevel
+
 
 class TelegramBots:
     def __init__(self, logLevel=""):
-        self.logger = setLogLevel(logLevel, __name__)
+        self.logger = logging.getLogger(__name__)
+        ch = logging.StreamHandler()
+        formatter = logging.Formatter("%(asctime)s - %(name)s - %(levelname)s - %(message)s")
+        ch.setFormatter(formatter)
+        self.logger.addHandler(ch)
+
+        if logLevel.lower() == "debug":
+            self.logger.setLevel(logging.DEBUG)
+        elif logLevel.lower() == "error":
+            self.logger.setLevel(logging.ERROR)
+        else:
+            self.logger.setLevel(logging.INFO)
     
     def send2Telegram(self, bot_id, group, text):
         """
