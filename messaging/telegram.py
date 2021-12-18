@@ -1,5 +1,5 @@
 import requests
-from logger import setLogLevel
+from logger.logger import setLogLevel
 
 class TelegramBots:
     def __init__(self, logLevel=""):
