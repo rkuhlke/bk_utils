@@ -114,7 +114,7 @@ class AWS:
         table = dynamodb.Table(tableName)
         try:
             response = table.get_item(
-                key={
+                Key={
                     primary_key_name: primary_key_value
                 }
             )
