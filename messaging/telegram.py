@@ -26,8 +26,8 @@ class TelegramBots:
         """
         # sends a message to telegram
         try:
-            requests.get(f"https://api.telegram.org/bot{bot_id}/sendMessage?chat_id={group}=&text={text}")
+            response = requests.get(f"https://api.telegram.org/bot{bot_id}/sendMessage?chat_id={group}=&text={text}")
         except requests.RequestException as error:
             self.logger.error(f"Error: {error}")
         self.logger.info("Successfully Sent Message to Telegram")
-        return
+        return response
