@@ -186,3 +186,23 @@ class AWS:
         return results
 
     ########################## DynamoDB ##############################
+
+    ############################# EC2 ################################
+    def ec2DescribeInstances(self):
+        ec2 = boto3.client("ec2")
+        ec2_list = []
+        try:
+            ec2s = ec2.describe_instances()
+        except ClientError as error:
+            return self.logger.error(f"Ec2 Describe Instance Error: {error}")
+        while "NextToken" in ec2s:
+            ec2_list.append(ec2s)
+            try:
+                ec2.decsribe_instances(NextToken=ec2s.get("NextToken"))
+            except ClientError as error:
+                return self.logger.error(f"Ec2 Describe Instance Error: {error}")
+        ec2_list.append(ec2s)
+        self.logger.info("Successfully Described All Instances")
+        return ec2_list
+
+    ############################# EC2 ################################
