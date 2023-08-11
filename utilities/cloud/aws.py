@@ -42,7 +42,8 @@ class AWS:
         try:
             s3.download_file(bucket, key, os.path.join(path, key))
         except ClientError as error:
-            return self.logger.error(f"S3 Download Object Error: {error}")
+            self.logger.error(f"S3 Download Object Error: {error}")
+            raise error
         return self.logger.info(f"S3 Download Object Successful: s3://{bucket}/{key} -> {os.path.join(path, key)}")
     
     def s3PutObject(self, bucket:str, key:str, data:any):

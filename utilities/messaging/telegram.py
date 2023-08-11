@@ -1,23 +1,13 @@
 import logging
 import requests
+from ..base import Base
 
 
-class TelegramBots:
-    def __init__(self, logLevel=""):
-        self.logger = logging.getLogger(__name__)
-        ch = logging.StreamHandler()
-        formatter = logging.Formatter("%(asctime)s - %(name)s - %(levelname)s - %(message)s")
-        ch.setFormatter(formatter)
-        self.logger.addHandler(ch)
-
-        if logLevel.lower() == "debug":
-            self.logger.setLevel(logging.DEBUG)
-        elif logLevel.lower() == "error":
-            self.logger.setLevel(logging.ERROR)
-        else:
-            self.logger.setLevel(logging.INFO)
+class TelegramBots(Base):
+    def __init__(self, *, name: str = 'telegram', logLevel: str = None) -> None:
+        super().__init__(name=name, logLevel=logLevel)
     
-    def send2Telegram(self, bot_id, group, text):
+    def send2Telegram(self, bot_id:str, group:str, text:str):
         """
         sends the message to telegram
         :param group: choose what telegram group to send message to
@@ -26,8 +16,10 @@ class TelegramBots:
         """
         # sends a message to telegram
         try:
-            response = requests.get(f"https://api.telegram.org/bot{bot_id}/sendMessage?chat_id={group}=&text={text}")
+            self.logger.info("Successfully Sent Message to Telegram")
+            return requests.get(f"https://api.telegram.org/bot{bot_id}/sendMessage?chat_id={group}=&text={text}")
         except requests.RequestException as error:
             self.logger.error(f"Error: {error}")
-        self.logger.info("Successfully Sent Message to Telegram")
-        return response
+            raise error
+        
+        
