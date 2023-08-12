@@ -3,7 +3,7 @@ import requests
 from ..base import Base
 
 
-class TelegramBots(Base):
+class Telegram(Base):
     def __init__(self, *, name: str = 'telegram', logLevel: str = None) -> None:
         super().__init__(name=name, logLevel=logLevel)
     
