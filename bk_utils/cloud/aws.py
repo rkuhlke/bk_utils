@@ -500,6 +500,29 @@ class AWS(Base):
     ############################ WAFv2 ###############################
 
     ############################# EC2 ################################
+    def ec2DescribeRegions(self):
+        if self.session:
+            ec2 = self.session.client('ec2', region_name=self.region)
+        else:
+            ec2 = boto3.client("ec2", region_name=self.region, aws_access_key_id=self.access_key_id, aws_secret_access_key=self.secret_key_id)
+        try:
+            return ec2.describe_regions(
+                AllRegions=True
+            )
+        except ClientError as error:
+            raise f'EC2 Describe Region Error: {error}'
+    
+    def ec2DescribeNetworkACLs(self):
+        if self.session:
+            ec2 = self.session.client('ec2', region_name=self.region)
+        else:
+            ec2 = boto3.client("ec2", region_name=self.region, aws_access_key_id=self.access_key_id, aws_secret_access_key=self.secret_key_id)
+        try:
+            response = ec2.describe_network_acls(MaxResults=5)
+        except ClientError as error:
+            raise f'EC2 Describe Network ACL Error: {error}'
+        return response
+        
     def ec2DescribeInstances(self):
         if self.session:
             ec2 = self.session.client('ec2', region_name=self.region)
